@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  zeevou_apache:
+    image: azine/azine-docker-php-apache-cli:php-7.2
+    container_name: zeevou_apache
+    command: /usr/bin/tail -f /app/var/log/dev.log
+    volumes:
+      - ./:/app
+      - ./app/config/php-7.2.ini:/etc/php/7.2/apache2/php.ini
+      - ./app/config/php-7.2.ini:/etc/php/7.2/cli/php.ini
+      - ${PWD}/app/config/apache_config:/etc/apache2/sites-enabled/
+      - ~/.ssh:/root/ssh-config-from-host:ro
+      - ~/.gitconfig:/root/.gitconfig:ro
+      - ~/.composer/auth.json:/root/.composer/auth.json
+      - root_home:/root/
+
+volumes:
+  root_home:
